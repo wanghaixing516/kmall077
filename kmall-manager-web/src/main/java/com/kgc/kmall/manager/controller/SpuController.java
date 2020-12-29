@@ -5,6 +5,8 @@ import com.kgc.kmall.bean.PmsProductImage;
 import com.kgc.kmall.bean.PmsProductInfo;
 import com.kgc.kmall.bean.PmsProductSaleAttr;
 import com.kgc.kmall.service.SpuService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.dubbo.config.annotation.Reference;
 import org.csource.common.MyException;
@@ -21,6 +23,7 @@ import java.util.List;
 
 @CrossOrigin
 @RestController
+@Api(tags = "商品spu管理-显示spu列表", description = "提供商品spu管理-显示spu列表Rest API")
 public class SpuController {
     @Reference
     SpuService spuService;
@@ -28,83 +31,90 @@ public class SpuController {
     @Value("${fileServer.url}")
     String fileUrl;
 
-    @RequestMapping("/spuList")
-    public List<PmsProductInfo> spuList(Long catalog3Id){
+    //    显示spu列表
+//    @RequestMapping("/spuList")
+    @ApiOperation("显示spu列表")
+    @GetMapping(value = "/spuList", produces = "application/json;charset=UTF-8")
+    public List<PmsProductInfo> spuList(Long catalog3Id) {
         List<PmsProductInfo> infoList = spuService.spuList(catalog3Id);
         return infoList;
     }
 
 
-//    @RequestMapping("/fileUpload")
+    //    @RequestMapping("/fileUpload")
 //    public String fileUpload(@RequestParam("file") MultipartFile file){
 //        //文件上传
 //        //返回文件上传后的路径
 //        return "https://m.360buyimg.com/babel/jfs/t5137/20/1794970752/352145/d56e4e94/591417dcN4fe5ef33.jpg";
 //    }
-/*
- * 文件上传
- * */
-@RequestMapping("/fileUpload")
-public String fileUpload(@RequestParam("file") MultipartFile file)
-        throws IOException, MyException {
-    try {
-        //文件上传
-        //返回文件上传后的路径
-        String imgUrl=fileUrl;
-        if(file!=null){
+    /*
+     * 文件上传
+     * */
+    @ApiOperation("上传spu图片")
+    @PostMapping(value = "/fileUpload", produces = "application/json;charset=UTF-8")
+    public String fileUpload(@RequestParam("file") MultipartFile file)
+            throws IOException, MyException {
+        try {
+            //文件上传
+            //返回文件上传后的路径
+            String imgUrl = fileUrl;
+            if (file != null) {
 //            System.out.println("multipartFile = " + file.getName()+"|"+file.getSize());
 
-            String configFile = this.getClass().getResource("/tracker.conf").getFile();
-            ClientGlobal.init("E:\\IDEAR文件\\kmall077\\kmall-manager-web\\src\\main\\resources\\tracker.conf");
-            TrackerClient trackerClient=new TrackerClient();
-            TrackerServer trackerServer=trackerClient.getTrackerServer();
-            StorageClient storageClient=new StorageClient(trackerServer,null);
-            String filename=    file.getOriginalFilename();
-            String extName = FilenameUtils.getExtension(filename);
+                String configFile = this.getClass().getResource("/tracker.conf").getFile();
+                ClientGlobal.init("E:\\IDEAR文件\\kmall077\\kmall-manager-web\\src\\main\\resources\\tracker.conf");
+                TrackerClient trackerClient = new TrackerClient();
+                TrackerServer trackerServer = trackerClient.getTrackerServer();
+                StorageClient storageClient = new StorageClient(trackerServer, null);
+                String filename = file.getOriginalFilename();
+                String extName = FilenameUtils.getExtension(filename);
 
-            String[] upload_file = storageClient.upload_file(file.getBytes(), extName, null);
-            imgUrl=fileUrl ;
-            for (int i = 0; i < upload_file.length; i++) {
-                String path = upload_file[i];
-                imgUrl+="/"+path;
+                String[] upload_file = storageClient.upload_file(file.getBytes(), extName, null);
+                imgUrl = fileUrl;
+                for (int i = 0; i < upload_file.length; i++) {
+                    String path = upload_file[i];
+                    imgUrl += "/" + path;
+                }
             }
+            System.out.println(imgUrl);
+            return imgUrl;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
-        System.out.println(imgUrl);
-        return imgUrl;
-    }catch (Exception e){
-        e.printStackTrace();
-        return null;
     }
-}
 
 
-
-
-
-
-    @RequestMapping("/baseSaleAttrList")
-    public List<PmsBaseSaleAttr> baseSaleAttrList(){
+    @ApiOperation("显示销售属性列表")
+    @PostMapping(value = "/baseSaleAttrList", produces = "application/json;charset=UTF-8")
+//    @RequestMapping("/baseSaleAttrList")
+    public List<PmsBaseSaleAttr> baseSaleAttrList() {
         List<PmsBaseSaleAttr> saleAttrList = spuService.baseSaleAttrList();
         return saleAttrList;
     }
 
 
-
-    @RequestMapping("/saveSpuInfo")
-    public String saveSpuInfo(@RequestBody  PmsProductInfo pmsProductInfo){
+    @ApiOperation("显示销售属性列表")
+    @PostMapping(value = "/saveSpuInfo", produces = "application/json;charset=UTF-8")
+//    @RequestMapping("/saveSpuInfo")
+    public String saveSpuInfo(@RequestBody PmsProductInfo pmsProductInfo) {
         //保存数据库
         Integer integer = spuService.saveSpuInfo(pmsProductInfo);
-        return integer>0?"success":"fail";
+        return integer > 0 ? "success" : "fail";
     }
 
-    @RequestMapping("/spuSaleAttrList")
-    public List<PmsProductSaleAttr> spuSaleAttrList(Long spuId){
-        List<PmsProductSaleAttr> pmsProductSaleAttrList=spuService.spuSaleAttrList(spuId);
+    @ApiOperation("显示销售属性列表")
+    @PostMapping(value = "/spuSaleAttrList", produces = "application/json;charset=UTF-8")
+//    @RequestMapping("/spuSaleAttrList")
+    public List<PmsProductSaleAttr> spuSaleAttrList(Long spuId) {
+        List<PmsProductSaleAttr> pmsProductSaleAttrList = spuService.spuSaleAttrList(spuId);
         return pmsProductSaleAttrList;
     }
 
-    @RequestMapping("/spuImageList")
-    public List<PmsProductImage> spuImageList(Long spuId){
+    @ApiOperation("显示销售属性列表")
+    @RequestMapping(value = "/spuImageList", produces = "application/json;charset=UTF-8")
+//    @RequestMapping("/spuImageList")
+    public List<PmsProductImage> spuImageList(Long spuId) {
         List<PmsProductImage> pmsProductImageList = spuService.spuImageList(spuId);
         return pmsProductImageList;
     }

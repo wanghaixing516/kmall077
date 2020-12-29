@@ -11,7 +11,7 @@ public class PmsBaseAttrInfo implements Serializable {
     private Long catalog3Id;
 
     private String isEnabled;
-//
+    //
     private List<PmsBaseAttrValue> attrValueList;
 
     public List<PmsBaseAttrValue> getAttrValueList() {
@@ -21,7 +21,8 @@ public class PmsBaseAttrInfo implements Serializable {
     public void setAttrValueList(List<PmsBaseAttrValue> attrValueList) {
         this.attrValueList = attrValueList;
     }
-//
+
+    //
     public Long getId() {
         return id;
     }

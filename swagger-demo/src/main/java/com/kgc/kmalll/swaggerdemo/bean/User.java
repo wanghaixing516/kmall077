@@ -22,6 +22,7 @@ public class User {
         this.age = age;
         this.phone = phone;
     }
+
     public User() {
 
     }

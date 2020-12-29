@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.util.List;
+
 @Component
 @Service
 public class AttrServiceImpl implements AttrService {
@@ -23,12 +24,12 @@ public class AttrServiceImpl implements AttrService {
 
     @Override
     public List<PmsBaseAttrInfo> select(Long catalog3Id) {
-        PmsBaseAttrInfoExample example=new PmsBaseAttrInfoExample();
+        PmsBaseAttrInfoExample example = new PmsBaseAttrInfoExample();
         PmsBaseAttrInfoExample.Criteria criteria = example.createCriteria();
         criteria.andCatalog3IdEqualTo(catalog3Id);
         List<PmsBaseAttrInfo> infoList = pmsBaseAttrInfoMapper.selectByExample(example);
         for (PmsBaseAttrInfo pmsBaseAttrInfo : infoList) {
-            PmsBaseAttrValueExample example1=new PmsBaseAttrValueExample();
+            PmsBaseAttrValueExample example1 = new PmsBaseAttrValueExample();
             PmsBaseAttrValueExample.Criteria criteria1 = example1.createCriteria();
             criteria1.andAttrIdEqualTo(pmsBaseAttrInfo.getId());
             List<PmsBaseAttrValue> pmsBaseAttrValues = pmsBaseAttrValueMapper.selectByExample(example1);
@@ -39,36 +40,35 @@ public class AttrServiceImpl implements AttrService {
 
     @Override
     public Integer add(PmsBaseAttrInfo attrInfo) {
-        int i=0;
+        int i = 0;
         //判断是添加还是修改
-        if (attrInfo.getId()==null){
+        if (attrInfo.getId() == null) {
             //添加
             i = pmsBaseAttrInfoMapper.insert(attrInfo);
-        }else{
+        } else {
             //修改
-            i=pmsBaseAttrInfoMapper.updateByPrimaryKey(attrInfo);
+            i = pmsBaseAttrInfoMapper.updateByPrimaryKey(attrInfo);
         }
         //删除原属性值
-        PmsBaseAttrValueExample example=new PmsBaseAttrValueExample();
+        PmsBaseAttrValueExample example = new PmsBaseAttrValueExample();
         PmsBaseAttrValueExample.Criteria criteria = example.createCriteria();
         criteria.andAttrIdEqualTo(attrInfo.getId());
         i = pmsBaseAttrValueMapper.deleteByExample(example);
         //添加新属性值
-        if (attrInfo.getAttrValueList().size()>0){
-            i=pmsBaseAttrValueMapper.insertBatch(attrInfo.getId(),attrInfo.getAttrValueList());
+        if (attrInfo.getAttrValueList().size() > 0) {
+            i = pmsBaseAttrValueMapper.insertBatch(attrInfo.getId(), attrInfo.getAttrValueList());
         }
         return i;
     }
 
     @Override
     public List<PmsBaseAttrValue> getAttrValueList(Long attrId) {
-        PmsBaseAttrValueExample example=new PmsBaseAttrValueExample();
+        PmsBaseAttrValueExample example = new PmsBaseAttrValueExample();
         PmsBaseAttrValueExample.Criteria criteria = example.createCriteria();
         criteria.andAttrIdEqualTo(attrId);
         List<PmsBaseAttrValue> valueList = pmsBaseAttrValueMapper.selectByExample(example);
         return valueList;
     }
-
 
 
 }

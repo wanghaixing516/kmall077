@@ -3,7 +3,7 @@ package com.kgc.kmall.bean;
 import java.io.Serializable;
 import java.util.List;
 
-public class PmsProductInfo  implements Serializable {
+public class PmsProductInfo implements Serializable {
     private Long id;
 
     private String spuName;

@@ -28,4 +28,9 @@ public interface PmsProductSaleAttrMapper {
     int updateByPrimaryKeySelective(PmsProductSaleAttr record);
 
     int updateByPrimaryKey(PmsProductSaleAttr record);
+
+    /*
+     * 根据sku的销售属性添加isChecked属性
+     * */
+    List<PmsProductSaleAttr> spuSaleAttrListIsCheck(@Param("spuId") Long spuId,@Param("skuId") Long skuId);
 }

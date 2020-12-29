@@ -13,6 +13,7 @@ import org.apache.dubbo.config.annotation.Service;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+
 @Component
 @Service
 public class SkuServiceImpl implements SkuService {
@@ -24,6 +25,7 @@ public class SkuServiceImpl implements SkuService {
     PmsSkuAttrValueMapper pmsSkuAttrValueMapper;
     @Resource
     PmsSkuSaleAttrValueMapper pmsSkuSaleAttrValueMapper;
+
     @Override
     public String saveSkuInfo(PmsSkuInfo skuInfo) {
         pmsSkuInfoMapper.insert(skuInfo);
@@ -42,4 +44,12 @@ public class SkuServiceImpl implements SkuService {
         }
         return "success";
     }
+
+    @Override
+    public PmsSkuInfo selectBySkuId(Long id) {
+        return pmsSkuInfoMapper.selectByPrimaryKey(id);
+    }
+
+
+
 }

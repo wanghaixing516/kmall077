@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.util.List;
+
 @Component
 @Service
 public class CatalogServiceImpl implements CatalogService {
@@ -21,24 +22,27 @@ public class CatalogServiceImpl implements CatalogService {
 
     @Resource
     PmsBaseCatalog3Mapper pmsBaseCatalog3Mapper;
+
     //一级分类
     public List<PmsBaseCatalog1> getCatalog1() {
         List<PmsBaseCatalog1> pmsBaseCatalog1s = pmsBaseCatalog1Mapper.selectByExample(null);
         return pmsBaseCatalog1s;
     }
+
     //二级分类
     @Override
     public List<PmsBaseCatalog2> getCatalog2(Integer catalog1Id) {
-        PmsBaseCatalog2Example example=new PmsBaseCatalog2Example();
+        PmsBaseCatalog2Example example = new PmsBaseCatalog2Example();
         PmsBaseCatalog2Example.Criteria criteria = example.createCriteria();
         criteria.andCatalog1IdEqualTo(catalog1Id);
         List<PmsBaseCatalog2> catalog2List = pmsBaseCatalog2Mapper.selectByExample(example);
         return catalog2List;
     }
+
     //二级分类
     @Override
     public List<PmsBaseCatalog3> getCatalog3(Long catalog2Id) {
-        PmsBaseCatalog3Example example=new PmsBaseCatalog3Example();
+        PmsBaseCatalog3Example example = new PmsBaseCatalog3Example();
         PmsBaseCatalog3Example.Criteria criteria = example.createCriteria();
         criteria.andCatalog2IdEqualTo(catalog2Id);
         List<PmsBaseCatalog3> catalog3List = pmsBaseCatalog3Mapper.selectByExample(example);

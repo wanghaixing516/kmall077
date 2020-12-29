@@ -16,7 +16,7 @@ class KmallManagerServiceApplicationTests {
 
     @Test
     void contextLoads() {
-        List<PmsBaseCatalog1> pmsBaseCatalog1s=catalogService.getCatalog1();
+        List<PmsBaseCatalog1> pmsBaseCatalog1s = catalogService.getCatalog1();
         for (PmsBaseCatalog1 pmsBaseCatalog1 : pmsBaseCatalog1s) {
             System.out.println(pmsBaseCatalog1);
         }

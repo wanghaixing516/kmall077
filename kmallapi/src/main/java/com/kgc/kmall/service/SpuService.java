@@ -11,10 +11,13 @@ public interface SpuService {
     public List<PmsProductInfo> spuList(Long catalog3Id);
 
     public List<PmsBaseSaleAttr> baseSaleAttrList();
-//保存spu
+
+    //保存spu
     public Integer saveSpuInfo(PmsProductInfo pmsProductInfo);
 
     List<PmsProductSaleAttr> spuSaleAttrList(Long spuId);
 
     List<PmsProductImage> spuImageList(Long spuId);
+
+    public List<PmsProductSaleAttr> spuSaleAttrListIsCheck(Long spuId, Long skuId);
 }

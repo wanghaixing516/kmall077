@@ -2,7 +2,7 @@ package com.kgc.kmall.bean;
 
 import java.io.Serializable;
 
-public class PmsBaseCatalog3  implements Serializable {
+public class PmsBaseCatalog3 implements Serializable {
     private Long id;
 
     private String name;
