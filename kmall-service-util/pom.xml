@@ -20,6 +20,13 @@
     <!--    </properties>-->
 
     <dependencies>
+
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+        </dependency>
+
+
         <dependency>
             <groupId>com.kgc.kmall</groupId>
             <artifactId>kmall-common-util</artifactId>

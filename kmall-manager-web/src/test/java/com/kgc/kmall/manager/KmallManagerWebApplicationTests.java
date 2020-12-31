@@ -1,5 +1,7 @@
 package com.kgc.kmall.manager;
 
+import com.kgc.kmall.bean.PmsProductSaleAttr;
+import com.kgc.kmall.service.SpuService;
 import org.csource.common.MyException;
 import org.csource.fastdfs.ClientGlobal;
 import org.csource.fastdfs.StorageClient;
@@ -8,10 +10,16 @@ import org.csource.fastdfs.TrackerServer;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import javax.annotation.Resource;
 import java.io.IOException;
+import java.util.List;
 
 @SpringBootTest
 class KmallManagerWebApplicationTests {
+@Resource
+    SpuService spuService;
+
+
 
     @Test
     void contextLoads() throws IOException, MyException {

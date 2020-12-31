@@ -33,8 +33,8 @@ public class SpuController {
 
     //    显示spu列表
 //    @RequestMapping("/spuList")
-    @ApiOperation("显示spu列表")
-    @GetMapping(value = "/spuList", produces = "application/json;charset=UTF-8")
+    @ApiOperation(value = "显示spu列表")
+    @RequestMapping(value = "/spuList")
     public List<PmsProductInfo> spuList(Long catalog3Id) {
         List<PmsProductInfo> infoList = spuService.spuList(catalog3Id);
         return infoList;
@@ -51,7 +51,7 @@ public class SpuController {
      * 文件上传
      * */
     @ApiOperation("上传spu图片")
-    @PostMapping(value = "/fileUpload", produces = "application/json;charset=UTF-8")
+        @RequestMapping(value = "/fileUpload")
     public String fileUpload(@RequestParam("file") MultipartFile file)
             throws IOException, MyException {
         try {
@@ -86,7 +86,7 @@ public class SpuController {
 
 
     @ApiOperation("显示销售属性列表")
-    @PostMapping(value = "/baseSaleAttrList", produces = "application/json;charset=UTF-8")
+    @RequestMapping(value = "/baseSaleAttrList")
 //    @RequestMapping("/baseSaleAttrList")
     public List<PmsBaseSaleAttr> baseSaleAttrList() {
         List<PmsBaseSaleAttr> saleAttrList = spuService.baseSaleAttrList();
@@ -95,7 +95,7 @@ public class SpuController {
 
 
     @ApiOperation("显示销售属性列表")
-    @PostMapping(value = "/saveSpuInfo", produces = "application/json;charset=UTF-8")
+    @RequestMapping(value = "/saveSpuInfo")
 //    @RequestMapping("/saveSpuInfo")
     public String saveSpuInfo(@RequestBody PmsProductInfo pmsProductInfo) {
         //保存数据库
@@ -104,7 +104,7 @@ public class SpuController {
     }
 
     @ApiOperation("显示销售属性列表")
-    @PostMapping(value = "/spuSaleAttrList", produces = "application/json;charset=UTF-8")
+    @RequestMapping(value = "/spuSaleAttrList")
 //    @RequestMapping("/spuSaleAttrList")
     public List<PmsProductSaleAttr> spuSaleAttrList(Long spuId) {
         List<PmsProductSaleAttr> pmsProductSaleAttrList = spuService.spuSaleAttrList(spuId);
@@ -112,7 +112,7 @@ public class SpuController {
     }
 
     @ApiOperation("显示销售属性列表")
-    @RequestMapping(value = "/spuImageList", produces = "application/json;charset=UTF-8")
+    @RequestMapping(value = "/spuImageList")
 //    @RequestMapping("/spuImageList")
     public List<PmsProductImage> spuImageList(Long spuId) {
         List<PmsProductImage> pmsProductImageList = spuService.spuImageList(spuId);
