@@ -47,8 +47,8 @@ public class ItemController {
                 if(skuInfo.getSkuSaleAttrValueList()!=null && skuInfo.getSkuSaleAttrValueList().size()!=0){
                     for (PmsSkuSaleAttrValue pmsSkuSaleAttrValue : skuInfo.getSkuSaleAttrValueList()) {
                         k+=pmsSkuSaleAttrValue.getSaleAttrValueId()+"|";
-                        System.out.println(k);
-                        System.out.println("====");
+//                        System.out.println(k);
+//                        System.out.println("====");
 
                     }
                     skuSaleAttrHash.put(k,skuInfo.getId());
